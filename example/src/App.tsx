@@ -1,18 +1,25 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-popup-manager';
+import { PopupProvider, popupManager } from 'react-native-popup-manager';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    popupManager.add({ id: '1' })
+    popupManager.add({ id: '2' })
+    popupManager.add({ id: '3' })
+    popupManager.add({ id: '4' })
+    popupManager.next();
+
+    setInterval(popupManager.next, 5000)
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <PopupProvider>
+        <Text>{"react-native-popup-manager"}</Text>
+      </PopupProvider>
     </View>
   );
 }

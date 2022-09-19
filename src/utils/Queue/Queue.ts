@@ -12,20 +12,29 @@ class Queue {
     this.head = 0;
     this.tail = 0;
   }
-  enqueue(element: any) {
+  insert(element: any) { // add element to the queue
     this.elements[this.tail] = element;
     this.tail++;
   }
-  dequeue() {
+  insertHead(element: any) {
+    const newElements: Element = {};
+    newElements[this.head] = element;
+    Object.keys(this.elements).map((k: any) => { newElements[k + 1] = this.elements[k] });
+    this.tail++;
+    this.elements = newElements;
+  }
+
+  dequeue() { // return and remove the last element
+    if (Object.keys(this.elements).length == 0) return null
     const item = this.elements[this.head];
     delete this.elements[this.head];
     this.head++;
     return item;
   }
-  peek() {
+  peek() { // return the first element
     return this.elements[this.head];
   }
-  get length() {
+  get length() { // return the length of the queue
     return this.tail - this.head;
   }
   get isEmpty() {
