@@ -1,7 +1,7 @@
 import React from "react"
-import { Modal, StyleSheet, Text, View } from "react-native"
+import { Modal, StyleSheet, View } from "react-native"
 import popupManager from "../PopupManager";
-import type { PopupOptions } from "../PopupManager/types";
+import type { PopupOptions } from "../types";
 
 const PopupComponent = React.forwardRef((props, ref) => {
     console.log("PopupComponent ~ props", props)
@@ -9,6 +9,7 @@ const PopupComponent = React.forwardRef((props, ref) => {
     const [popupData, setPopupData] = React.useState<PopupOptions>({});
 
     React.useImperativeHandle(ref, () => ({
+        isShown: () => isVisible,
         show: (data: PopupOptions) => setPopupData(data),
         hide: () => setPopupData({}),
     }))
@@ -22,16 +23,13 @@ const PopupComponent = React.forwardRef((props, ref) => {
         }
     }, [popupData])
 
-    const { id } = popupData
     return (
         <Modal
             visible={isVisible}
             onDismiss={popupManager.next}
         >
             <View style={s.backdrop}>
-                <View style={s.container}>
-                    <Text style={{ fontSize: 40 }}>Modal show: {id}</Text>
-                </View>
+                {Object.keys(popupData).length > 0 && popupData}
             </View>
         </Modal>
     )

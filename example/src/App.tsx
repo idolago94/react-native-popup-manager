@@ -1,23 +1,49 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { PopupProvider, popupManager } from 'react-native-popup-manager';
+import { StyleSheet, View, Text, Button } from 'react-native';
+import { PopupProvider, PopupManager, closeAction } from 'react-native-popup-manager';
+import type { DefaultTemplateProps, PopupOptions } from 'react-native-popup-manager/@types';
+
+interface WarningTemplateProps extends PopupOptions {
+  content: string
+}
+
+const WarningTemplate: React.FC<WarningTemplateProps> = ({ content }) => {
+  return <View style={{ height: 300, width: 300, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+    <Text style={{ fontWeight: 'bold' }}>Warning Popup</Text>
+    <Text style={{ color: 'red', padding: 7 }}>{content}</Text>
+    <Button onPress={closeAction()} title='OK, close this popup!' />
+  </View>
+}
 
 export default function App() {
 
   React.useEffect(() => {
-    popupManager.add({ id: '1' })
-    popupManager.add({ id: '2' })
-    popupManager.add({ id: '3' })
-    popupManager.add({ id: '4' })
-    popupManager.next();
+    const newPopup: DefaultTemplateProps = {
+      title: 'My new popup',
+      content: "Popup content",
+      confirmButtonText: "confirm",
+      cancelButtonText: "cancel",
+      onConfirm: () => { console.log("Confirm!!"); PopupManager.next() },
+      onCancel: closeAction(() => console.log("Cancel!!"))
+    }
+    const warningPopup: WarningTemplateProps = {
+      type: 'warning',
+      content: "This is warning popup with content!"
+    }
 
-    setInterval(popupManager.next, 5000)
+    PopupManager.add(newPopup)
+    PopupManager.add(warningPopup)
+    PopupManager.next(); // for start show the popups
   }, []);
+
+  const customTemplates = {
+    warning: WarningTemplate
+  }
 
   return (
     <View style={styles.container}>
-      <PopupProvider>
+      <PopupProvider templates={customTemplates}>
         <Text>{"react-native-popup-manager"}</Text>
       </PopupProvider>
     </View>

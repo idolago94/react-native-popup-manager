@@ -1,17 +1,30 @@
 import React from "react";
 import PopupComponent from "./PopupComponent";
-import popupManager from './PopupManager';
+import PopupManager from './PopupManager';
+import { closeAction } from './generators'
+import type { PopupOptions } from "./types";
 
-interface Props { }
+interface ProviderProps {
+  templates?: PopupOptions
+}
 
-const PopupProvider: React.FC<Props> = (props) => {
+const PopupProvider: React.FC<ProviderProps> = ({
+  children,
+  templates
+}) => {
+
+  React.useEffect(() => {
+    templates && PopupManager.setTemplates(templates)
+  }, [])
+
   return <>
-    <PopupComponent ref={popupManager.setRef} />
-    {props.children}
+    <PopupComponent ref={PopupManager.setRef} />
+    {children}
   </>
 }
 
 export {
   PopupProvider,
-  popupManager
+  PopupManager,
+  closeAction // TODO: import this function from 'react-native-popup-manager/@generators'
 }
