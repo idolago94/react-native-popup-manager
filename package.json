@@ -124,5 +124,8 @@
         }
       ]
     ]
+  },
+  "publishConfig": {
+    "idolago94:registry": "https://npm.pkg.github.com"
   }
 }
