@@ -34,6 +34,11 @@ class Queue {
   peek() { // return the first element
     return this.elements[this.head];
   }
+  reset() {
+    this.elements = {};
+    this.head = 0;
+    this.tail = 0;
+  }
   get length() { // return the length of the queue
     return this.tail - this.head;
   }

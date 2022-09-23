@@ -1,7 +1,7 @@
 import React from "react";
 import PopupComponent from "./PopupComponent";
 import PopupManager from './PopupManager';
-import { closeAction } from './generators'
+import { closeAction, clearPopupsAction } from './generators'
 import type { PopupOptions } from "./types";
 
 interface ProviderProps {
@@ -26,5 +26,7 @@ const PopupProvider: React.FC<ProviderProps> = ({
 export {
   PopupProvider,
   PopupManager,
-  closeAction // TODO: import this function from 'react-native-popup-manager/@generators'
+  // TODO: import this function from 'react-native-popup-manager/@generators'
+  closeAction,
+  clearPopupsAction
 }

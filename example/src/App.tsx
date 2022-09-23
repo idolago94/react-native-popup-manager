@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text, Button } from 'react-native';
-import { PopupProvider, PopupManager, closeAction } from 'react-native-popup-manager';
+import { PopupProvider, PopupManager, closeAction, clearPopupsAction } from 'react-native-popup-manager';
 import type { DefaultTemplateProps, PopupOptions } from 'react-native-popup-manager/@types';
 
 interface WarningTemplateProps extends PopupOptions {
@@ -24,8 +24,8 @@ export default function App() {
       content: "Popup content",
       confirmButtonText: "confirm",
       cancelButtonText: "cancel",
-      onConfirm: () => { console.log("Confirm!!"); PopupManager.next() },
-      onCancel: closeAction(() => console.log("Cancel!!"))
+      onConfirm: closeAction(() => { console.log("Confirm!!") }),
+      onCancel: clearPopupsAction(() => console.log("Cancel!!"))
     }
     const warningPopup: WarningTemplateProps = {
       type: 'warning',
