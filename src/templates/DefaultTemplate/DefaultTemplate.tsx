@@ -7,24 +7,27 @@ const DefaultTemplate: React.FC<DefaultTemplateProps> = ({
     content,
     confirmButtonText,
     cancelButtonText,
-    onConfirm,
-    onCancel
+    onConfirm = () => { console.log("This popup didn't get a callback function for the confirm event") },
+    onCancel = () => { console.log("This popup didn't get a callback function for the cancel event") }
 }) => {
+    const showConfirmButton = confirmButtonText
+    const showCancelButton = cancelButtonText
+    const showFooter = showConfirmButton || showCancelButton
     return <View style={s.container}>
-        <View style={s.header}>
+        {title && <View style={s.header}>
             {/* here will be the popup header */}
             <Text>{title}</Text>
-        </View>
-        <View style={s.content}>
+        </View>}
+        {content && <View style={s.content}>
             {/* here will be the popup content */}
             <Text>{content}</Text>
-        </View>
-        <View style={s.row_spacing}>
+        </View>}
+        {showFooter && <View style={s.row_spacing}>
             {/* here will be the popup confirm button */}
-            <Button title={confirmButtonText} onPress={onConfirm} />
+            {showConfirmButton && <Button title={confirmButtonText} onPress={onConfirm} />}
             {/* here will be the popup cancel button */}
-            <Button title={cancelButtonText} onPress={onCancel} />
-        </View>
+            {showCancelButton && <Button title={cancelButtonText} onPress={onCancel} />}
+        </View>}
     </View>
 }
 
