@@ -29,32 +29,32 @@ import React from 'react';
 import { PopupProvider, PopupManager, closeAction, clearPopupsAction } from 'react-native-popup-manager';
 
 function showThreePopupsInParallel() {
-	   const popupOne: DefaultTemplateProps = {
-		  title: 'Popup 1',
-		  content: "Popup content",
-		  confirmButtonText: "confirm",
-		  cancelButtonText: "cancel",
-		  onConfirm: closeAction(() => { console.log("Confirm!!") }),
-		  onCancel: clearPopupsAction(() => console.log("Cancel!!"))
-		}
-		PopupManager.add(popupOne)
+	const popupOne: DefaultTemplateProps = {
+	  title: 'Popup 1',
+		content: "Popup content",
+	  confirmButtonText: "confirm",
+	  cancelButtonText: "cancel",
+		onConfirm: closeAction(() => { console.log("Confirm!!") }),
+		onCancel: clearPopupsAction(() => console.log("Cancel!!"))
+	}
+	PopupManager.add(popupOne)
 		
-		const popupTwo: DefaultTemplateProps = {
-		  title: 'Popup 2',
-		  confirmButtonText: "confirm",
-		  cancelButtonText: "cancel",
-		  onConfirm: closeAction(() => { console.log("Confirm!!") }),
-		  onCancel: clearPopupsAction(() => console.log("Cancel!!"))
-		}
-		PopupManager.add(popupTwo)
+	const popupTwo: DefaultTemplateProps = {
+	  title: 'Popup 2',
+		confirmButtonText: "confirm",
+	  cancelButtonText: "cancel",
+	  onConfirm: closeAction(() => { console.log("Confirm!!") }),
+		onCancel: clearPopupsAction(() => console.log("Cancel!!"))
+	}
+	PopupManager.add(popupTwo)
 		
-		const popupThree: DefaultTemplateProps = {
-		  title: 'Popup 3',
-		  content: "Popup content"
-		}
-		PopupManager.add(popupThree)
+	const popupThree: DefaultTemplateProps = {
+		title: 'Popup 3',
+		content: "Popup content"
+	}
+	PopupManager.add(popupThree)
 		
-		PopupManager.next() // This function will start show all the popups in parallel.
+	PopupManager.next() // This function will start show all the popups in parallel.
 }
 ```
 Add the popups object config to the popup manager, 
