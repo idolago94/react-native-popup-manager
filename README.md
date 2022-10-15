@@ -23,6 +23,8 @@ export default function App() {
 }
 ```
 
+###### The `PopupProvider` component can get all the [react native Modal props](https://reactnative.dev/docs/modal#onshow).
+
 ##### 2. Now you can use the `PopupManager` from everywhere you want to show popup or popups in parallel.
 ```js
 import React from 'react';
@@ -59,6 +61,8 @@ function showThreePopupsInParallel() {
 ```
 Add the popups object config to the popup manager, 
 after that you can call the `next` function to start show the popups in parallel.
+
+###### Also here you can send any [react native Modal props](https://reactnative.dev/docs/modal#onshow) for extra configuration of the specific popup.
 
 ##### Popup manager has a default template for all the popups(or with type `default`) that will expect to get this properties.
 ###### Default Template Props:

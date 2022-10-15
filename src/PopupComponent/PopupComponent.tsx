@@ -1,36 +1,46 @@
 import React from "react"
-import { Modal, StyleSheet, View } from "react-native"
+import { Modal, ModalProps, StyleSheet, View } from "react-native"
 import popupManager from "../PopupManager";
 import type { PopupOptions } from "../types";
 
-const PopupComponent = React.forwardRef((props, ref) => {
-    console.log("PopupComponent ~ props", props)
+const PopupComponent = React.forwardRef((props: ModalProps, ref) => {
     const [isVisible, setVisibility] = React.useState(false);
-    const [popupData, setPopupData] = React.useState<PopupOptions>({});
+    const [popupComponent, setPopupComponent] = React.useState<PopupOptions>({});
+    const [popupConfig, setPopupConfig] = React.useState<PopupOptions>({});
 
     React.useImperativeHandle(ref, () => ({
         isShown: () => isVisible,
-        show: (data: PopupOptions) => setPopupData(data),
-        hide: () => setPopupData({}),
+        show: (popupComponent: Element, configObj: PopupOptions) => {
+            setPopupConfig(configObj)
+            setPopupComponent(popupComponent)
+        },
+        hide: () => setPopupComponent({}),
     }))
 
     React.useEffect(() => {
-        console.log("PopupComponent ~ popupData effect:", popupData)
-        if (Object.keys(popupData).length > 0) {
+        if (Object.keys(popupComponent).length > 0) {
             setVisibility(true)
         } else {
             setVisibility(false)
         }
-    }, [popupData])
+    }, [popupComponent])
+
+    const onDismiss = () => {
+        props.onDismiss && props.onDismiss()
+        popupConfig.onDismiss && popupConfig.onDismiss()
+        popupManager.next()
+    }
 
     return (
         <Modal
             transparent
+            {...props}
+            {...popupConfig}
             visible={isVisible}
-            onDismiss={popupManager.next}
+            onDismiss={onDismiss}
         >
             <View style={s.backdrop}>
-                {Object.keys(popupData).length > 0 && popupData}
+                {Object.keys(popupComponent).length > 0 && popupComponent}
             </View>
         </Modal>
     )
