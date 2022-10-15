@@ -25,6 +25,7 @@ const PopupComponent = React.forwardRef((props, ref) => {
 
     return (
         <Modal
+            transparent
             visible={isVisible}
             onDismiss={popupManager.next}
         >

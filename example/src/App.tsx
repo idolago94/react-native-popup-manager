@@ -19,6 +19,10 @@ const WarningTemplate: React.FC<WarningTemplateProps> = ({ content }) => {
 export default function App() {
 
   React.useEffect(() => {
+    showPopups()
+  }, []);
+
+  const showPopups = () => {
     const newPopup: DefaultTemplateProps = {
       title: 'My new popup',
       content: "Popup content",
@@ -35,7 +39,7 @@ export default function App() {
     PopupManager.add(newPopup)
     PopupManager.add(warningPopup)
     PopupManager.next(); // for start show the popups
-  }, []);
+  }
 
   const customTemplates = {
     warning: WarningTemplate
@@ -45,6 +49,7 @@ export default function App() {
     <View style={styles.container}>
       <PopupProvider templates={customTemplates}>
         <Text>{"react-native-popup-manager"}</Text>
+        <Button color={'white'} onPress={showPopups} title='show' />
       </PopupProvider>
     </View>
   );
@@ -55,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'royalblue'
   },
   box: {
     width: 60,
