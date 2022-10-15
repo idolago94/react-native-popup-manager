@@ -49,8 +49,7 @@ const PopupManager = (function () {
                 } else {
                     TemplateComp = templates.default(popupConfig)
                 }
-                modalRef.show(TemplateComp)
-                // modalRef?.show(popupConfig)
+                modalRef.show(TemplateComp, popupConfig)
             } else if (modalRef.isShown()) modalRef?.hide()
         } catch (err) {
             console.log("PopupManager ~ next ~ err", err)
